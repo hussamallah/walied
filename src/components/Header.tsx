@@ -10,40 +10,40 @@ export default function Header({ isEnglish, setIsEnglish }: HeaderProps) {
     setIsEnglish(!isEnglish);
   };
   return (
-    <header className="wrap">
-      {/* Language Toggle Button */}
-      <div style={{
-        position: "absolute",
-        top: "20px",
-        left: "20px",
-        zIndex: 1000
-      }}>
-        <button
-          onClick={toggleLanguage}
-          style={{
-            background: isEnglish ? "#fbbf24" : "#1e293b",
-            color: isEnglish ? "#0f172a" : "#f8fafc",
-            border: "2px solid #fbbf24",
-            borderRadius: "8px",
-            padding: "8px 16px",
-            fontSize: "14px",
-            fontWeight: "600",
-            cursor: "pointer",
-            transition: "all 0.3s ease",
-            boxShadow: "0 2px 8px rgba(0,0,0,0.2)"
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = "translateY(-2px)";
-            e.currentTarget.style.boxShadow = "0 4px 12px rgba(0,0,0,0.3)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = "translateY(0)";
-            e.currentTarget.style.boxShadow = "0 2px 8px rgba(0,0,0,0.2)";
-          }}
-        >
-          {isEnglish ? "العربية" : "English"}
-        </button>
-      </div>
+      <header className="wrap" style={{ position: "relative", marginTop: "50px" }}>
+        {/* Language Toggle Button */}
+        <div style={{
+          position: "absolute",
+          top: "-20px",
+          right: "10px",
+          zIndex: 1000
+        }}>
+          <button
+            onClick={toggleLanguage}
+            style={{
+              background: isEnglish ? "#fbbf24" : "#1e293b",
+              color: isEnglish ? "#0f172a" : "#f8fafc",
+              border: "2px solid #fbbf24",
+              borderRadius: "8px",
+              padding: "6px 12px",
+              fontSize: "12px",
+              fontWeight: "600",
+              cursor: "pointer",
+              transition: "all 0.3s ease",
+              boxShadow: "0 2px 8px rgba(0,0,0,0.2)"
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = "translateY(-2px)";
+              e.currentTarget.style.boxShadow = "0 4px 12px rgba(0,0,0,0.3)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "translateY(0)";
+              e.currentTarget.style.boxShadow = "0 2px 8px rgba(0,0,0,0.2)";
+            }}
+          >
+            {isEnglish ? "العربية" : "English"}
+          </button>
+        </div>
 
       <nav style={{
         display: "flex",

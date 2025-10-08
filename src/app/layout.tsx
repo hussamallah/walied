@@ -11,6 +11,7 @@ const tajawal = Tajawal({
 export const metadata: Metadata = {
   title: "LEVEL UP — وليد الحلفاوي",
   description: "LEVEL UP — تدريب وتغذية بقيادة وليد الحلفاوي. خطط مخصّصة، متابعة يومية، وتحديثات أسبوعية.",
+  viewport: "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no",
 };
 
 export default function RootLayout({
