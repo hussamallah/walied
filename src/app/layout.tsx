@@ -22,8 +22,12 @@ export default function RootLayout({
     <html lang="ar" dir="rtl">
       <body
         className={`${tajawal.variable} font-sans antialiased`}
+        style={{
+          direction: "rtl"
+        }}
       >
         {children}
+        <script async src="//www.instagram.com/embed.js"></script>
       </body>
     </html>
   );
