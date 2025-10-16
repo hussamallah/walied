@@ -1,13 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import { loadStripe } from '@stripe/stripe-js';
 
 interface PlansProps {
   isEnglish: boolean;
 }
-
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
 export default function Plans({ isEnglish }: PlansProps) {
   const [loading, setLoading] = useState<string | null>(null);
