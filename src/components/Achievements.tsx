@@ -51,7 +51,7 @@ export default function Achievements({ isEnglish }: AchievementsProps) {
 
   return (
     <section className="section" id="hof">
-      <h2>{isEnglish ? "Hall of Achievements" : "قاعة الإنجازات"}</h2>
+      <h2>{isEnglish ? "Hall of Achievements" : "قاعة الإنجازات - 6 مرات بطل العالم IFBB"}</h2>
       <div className="card tl-details">
         <Image 
           id="tl-photo" 

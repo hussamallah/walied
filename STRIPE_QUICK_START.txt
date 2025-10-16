@@ -1,0 +1,36 @@
+🔥 STRIPE PAYMENT INTEGRATION - QUICK START 🔥
+
+✅ COMPLETED SETUP:
+- ✅ Stripe packages installed (@stripe/stripe-js, stripe)
+- ✅ API route created: /api/create-checkout
+- ✅ All 3 plan cards now have "Subscribe Now" buttons
+- ✅ Payment flow configured for recurring monthly subscriptions
+
+🔑 NEXT STEPS - ADD YOUR STRIPE KEYS:
+
+1. Create this file: .env.local (in the same folder as package.json)
+
+2. Add these two lines (replace with your actual keys):
+
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_your_key_here
+STRIPE_SECRET_KEY=sk_test_your_key_here
+
+3. Get your keys from: https://dashboard.stripe.com/apikeys
+
+4. Restart the dev server after adding keys
+
+💰 PLAN PRICING:
+- Basic Plan: $150/month
+- Gold Plan: $250/month  
+- Platinum Plan: $300/month
+
+🧪 TEST WITH STRIPE TEST CARD:
+Card number: 4242 4242 4242 4242
+Expiry: Any future date
+CVC: Any 3 digits
+
+📖 For detailed instructions, see: STRIPE_SETUP.md
+
+⚠️ IMPORTANT: Never commit .env.local to git (already in .gitignore)
+
+

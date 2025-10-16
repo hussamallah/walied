@@ -1,8 +1,45 @@
+'use client';
+
+import { useState } from 'react';
+import { loadStripe } from '@stripe/stripe-js';
+
 interface PlansProps {
   isEnglish: boolean;
 }
 
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+
 export default function Plans({ isEnglish }: PlansProps) {
+  const [loading, setLoading] = useState<string | null>(null);
+
+  const handleCheckout = async (planType: string) => {
+    setLoading(planType);
+    
+    try {
+      const response = await fetch('/api/create-checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ planType, isEnglish }),
+      });
+
+      const data = await response.json();
+
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        console.error('No checkout URL received');
+        alert(isEnglish ? 'Error creating checkout session' : 'خطأ في إنشاء جلسة الدفع');
+      }
+    } catch (error) {
+      console.error('Checkout error:', error);
+      alert(isEnglish ? 'Error creating checkout session' : 'خطأ في إنشاء جلسة الدفع');
+    } finally {
+      setLoading(null);
+    }
+  };
+
   return (
     <section className="section" id="plans">
       <h2>{isEnglish ? "Training Plans" : "الباقات"}</h2>
@@ -29,6 +66,34 @@ export default function Plans({ isEnglish }: PlansProps) {
             <li>{isEnglish ? "Daily WhatsApp follow-up" : "متابعة يومية عبر واتساب"}</li>
             <li>{isEnglish ? "Supplement schedule when needed" : "جدول المكمّلات عند الحاجة"}</li>
           </ul>
+          <button
+            onClick={() => handleCheckout('basic')}
+            disabled={loading !== null}
+            style={{
+              marginTop: "20px",
+              padding: "12px 24px",
+              backgroundColor: loading === 'basic' ? "#94a3b8" : "#b87333",
+              color: "#ffffff",
+              border: "none",
+              borderRadius: "8px",
+              fontWeight: "bold",
+              cursor: loading !== null ? "not-allowed" : "pointer",
+              width: "100%",
+              fontSize: "16px",
+              transition: "background-color 0.3s"
+            }}
+            onMouseEnter={(e) => {
+              if (loading === null) e.currentTarget.style.backgroundColor = "#8b5a26";
+            }}
+            onMouseLeave={(e) => {
+              if (loading === null) e.currentTarget.style.backgroundColor = "#b87333";
+            }}
+          >
+            {loading === 'basic' 
+              ? (isEnglish ? "Processing..." : "جاري المعالجة...")
+              : (isEnglish ? "Subscribe Now" : "اشترك الآن")
+            }
+          </button>
         </article>
         <article className="card" style={{
           border: "2px solid #fbbf24",
@@ -52,6 +117,34 @@ export default function Plans({ isEnglish }: PlansProps) {
             <li>{isEnglish ? "Daily WhatsApp follow-up" : "متابعة يومية عبر واتساب"}</li>
             <li>{isEnglish ? "Supplement schedule when needed" : "جدول المكمّلات عند الحاجة"}</li>
           </ul>
+          <button
+            onClick={() => handleCheckout('gold')}
+            disabled={loading !== null}
+            style={{
+              marginTop: "20px",
+              padding: "12px 24px",
+              backgroundColor: loading === 'gold' ? "#94a3b8" : "#fbbf24",
+              color: "#0f172a",
+              border: "none",
+              borderRadius: "8px",
+              fontWeight: "bold",
+              cursor: loading !== null ? "not-allowed" : "pointer",
+              width: "100%",
+              fontSize: "16px",
+              transition: "background-color 0.3s"
+            }}
+            onMouseEnter={(e) => {
+              if (loading === null) e.currentTarget.style.backgroundColor = "#f59e0b";
+            }}
+            onMouseLeave={(e) => {
+              if (loading === null) e.currentTarget.style.backgroundColor = "#fbbf24";
+            }}
+          >
+            {loading === 'gold' 
+              ? (isEnglish ? "Processing..." : "جاري المعالجة...")
+              : (isEnglish ? "Subscribe Now" : "اشترك الآن")
+            }
+          </button>
         </article>
         <article className="card" style={{
           border: "2px solid #e5e7eb",
@@ -76,6 +169,34 @@ export default function Plans({ isEnglish }: PlansProps) {
             <li><strong>{isEnglish ? "Technical analysis of exercise videos" : "تحليل تقني لفيديوهات التمرين"}</strong></li>
             <li><strong>{isEnglish ? "Daily progress review every 24 hours" : "مراجعة يومية لتقدمك كل 24 ساعة"}</strong></li>
           </ul>
+          <button
+            onClick={() => handleCheckout('platinum')}
+            disabled={loading !== null}
+            style={{
+              marginTop: "20px",
+              padding: "12px 24px",
+              backgroundColor: loading === 'platinum' ? "#94a3b8" : "#e5e7eb",
+              color: "#0f172a",
+              border: "none",
+              borderRadius: "8px",
+              fontWeight: "bold",
+              cursor: loading !== null ? "not-allowed" : "pointer",
+              width: "100%",
+              fontSize: "16px",
+              transition: "background-color 0.3s"
+            }}
+            onMouseEnter={(e) => {
+              if (loading === null) e.currentTarget.style.backgroundColor = "#d1d5db";
+            }}
+            onMouseLeave={(e) => {
+              if (loading === null) e.currentTarget.style.backgroundColor = "#e5e7eb";
+            }}
+          >
+            {loading === 'platinum' 
+              ? (isEnglish ? "Processing..." : "جاري المعالجة...")
+              : (isEnglish ? "Subscribe Now" : "اشترك الآن")
+            }
+          </button>
         </article>
       </div>
     </section>

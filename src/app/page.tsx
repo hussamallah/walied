@@ -17,8 +17,8 @@ export default function Home() {
       <Header isEnglish={isEnglish} setIsEnglish={setIsEnglish} />
       <main className="wrap">
         <Hero isEnglish={isEnglish} />
-        <Plans isEnglish={isEnglish} />
         <Achievements isEnglish={isEnglish} />
+        <Plans isEnglish={isEnglish} />
         <Certificates isEnglish={isEnglish} />
         <CV isEnglish={isEnglish} />
       </main>
