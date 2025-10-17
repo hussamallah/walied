@@ -1,0 +1,28 @@
+STRIPE API KEYS SETUP INSTRUCTIONS
+=====================================
+
+You have LIVE Stripe keys, so you need to set them up properly:
+
+1. CREATE .env.local FILE:
+   Create a file called ".env.local" in the project root (same folder as package.json)
+   
+   Add this content:
+   NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_live_YOUR_PUBLISHABLE_KEY_HERE
+   STRIPE_SECRET_KEY=sk_live_YOUR_SECRET_KEY_HERE
+
+2. FOR VERCEL DEPLOYMENT:
+   Go to your Vercel project dashboard:
+   - Settings → Environment Variables
+   - Add these two variables:
+     * NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY = pk_live_YOUR_PUBLISHABLE_KEY_HERE
+     * STRIPE_SECRET_KEY = sk_live_YOUR_SECRET_KEY_HERE
+
+3. IMPORTANT:
+   - These are LIVE keys (not test keys)
+   - They will process REAL payments
+   - Make sure your Stripe account is fully activated
+   - Never share these keys publicly
+
+4. TESTING:
+   - Use real credit cards for testing (small amounts)
+   - Or switch to test keys for development
