@@ -21,7 +21,20 @@ export default function Plans({ isEnglish }: PlansProps) {
         body: JSON.stringify({ planType, isEnglish }),
       });
 
-      const data = await response.json();
+      // If server returned HTML (e.g., error page), avoid JSON.parse crash
+      const contentType = response.headers.get('content-type') || '';
+      if (!response.ok) {
+        let serverMessage = 'Unknown error';
+        if (contentType.includes('application/json')) {
+          const errJson = await response.json().catch(() => null);
+          serverMessage = errJson?.error || serverMessage;
+        }
+        throw new Error(serverMessage);
+      }
+
+      const data = contentType.includes('application/json')
+        ? await response.json()
+        : { url: null };
 
       if (data.url) {
         window.location.href = data.url;
