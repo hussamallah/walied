@@ -191,26 +191,17 @@ function generateWhatsAppMessage(data: {
   planType: string;
   trainingCode: string;
 }) {
-  const planNames: Record<string, { en: string; ar: string }> = {
-    basic: { en: 'Basic Plan', ar: 'الباقة الأساسية' },
-    gold: { en: 'Gold Plan', ar: 'الذهبية (المتقدمة)' },
-    platinum: { en: 'Platinum Plan', ar: 'البلاتينية (VIP)' },
-  };
-
-  const planName = planNames[data.planType]?.en || data.planType;
-
-  // Create WhatsApp message text with training code
   const message = encodeURIComponent(
-    `🎉 Payment Confirmed! ✅\n\n` +
-    `Hi ${data.customerName}!\n\n` +
-    `Your payment for ${planName} has been received successfully.\n\n` +
-    `📋 Training Code: ${data.trainingCode}\n\n` +
-    `🚀 You are now READY FOR FULL TRAINING! 💪\n\n` +
-    `I'll contact you shortly to begin your personalized training program.\n\n` +
-    `Let's level up together! 🔥`
+    `Payment Successful! ✅\n\n` +
+    `Thank you for your payment. Please provide your details below so I can create your personalized plan:\n\n` +
+    `Name: ${data.customerName}\n` +
+    `Age: \n` +
+    `Weight (kg): \n` +
+    `Goal: \n` +
+    `Gender: \n\n` +
+    `Training Code: ${data.trainingCode}`
   );
 
-  // Your WhatsApp number (same as in your components)
   const whatsappNumber = '15715644075';
   return `https://wa.me/${whatsappNumber}?text=${message}`;
 }
