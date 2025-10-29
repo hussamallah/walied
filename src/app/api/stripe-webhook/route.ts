@@ -5,19 +5,26 @@ import Stripe from 'stripe';
 export const runtime = 'nodejs';
 
 export async function POST(req: NextRequest) {
-  const secretKey = process.env.STRIPE_SECRET_KEY;
-  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+  const stripeMode = process.env.NEXT_PUBLIC_STRIPE_MODE || 'test'; // Default to 'test' for safety
+
+  const secretKey = stripeMode === 'live'
+    ? process.env.STRIPE_SECRET_KEY_LIVE
+    : process.env.STRIPE_SECRET_KEY_TEST;
+    
+  const webhookSecret = stripeMode === 'live'
+    ? process.env.STRIPE_WEBHOOK_SECRET_LIVE
+    : process.env.STRIPE_WEBHOOK_SECRET_TEST;
 
   if (!secretKey) {
     return NextResponse.json(
-      { error: 'Stripe secret key not configured' },
+      { error: `Stripe secret key for ${stripeMode} mode is not configured` },
       { status: 500 }
     );
   }
 
   if (!webhookSecret) {
     return NextResponse.json(
-      { error: 'Webhook secret not configured' },
+      { error: `Webhook secret for ${stripeMode} mode is not configured` },
       { status: 500 }
     );
   }
@@ -31,7 +38,7 @@ export async function POST(req: NextRequest) {
 
   if (!signature) {
     return NextResponse.json(
-      { error: 'Missing signature or webhook secret' },
+      { error: 'Missing signature' },
       { status: 400 }
     );
   }
@@ -109,6 +116,7 @@ async function sendPaymentNotificationEmail(data: {
   const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || 'service_p1fllec';
   const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || 'template_7ipekdf';
   const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || 'MLSQXFKLZEE6VzPU_';
+  const notificationEmail = process.env.COACH_NOTIFICATION_EMAIL || 'hus.1998.apr@gmail.com'; // Fallback for safety
 
   // Plan names
   const planNames: Record<string, { en: string; ar: string }> = {
@@ -152,7 +160,7 @@ This is an automated notification from LEVEL UP Payment System.
         template_id: templateId,
         user_id: publicKey,
         template_params: {
-          to_email: 'hus.1998.apr@gmail.com', // Your email
+          to_email: notificationEmail, // Your email
           from_name: 'LEVEL UP Payment System',
           subject: emailSubject,
           message: emailBody,

@@ -1,6 +1,16 @@
 'use client';
 
 import { useState } from 'react';
+import { loadStripe } from '@stripe/stripe-js';
+
+// Stripe Promise - Initialize outside of component to avoid re-creating on every render
+const stripeMode = process.env.NEXT_PUBLIC_STRIPE_MODE || 'test';
+
+const publishableKey = stripeMode === 'live'
+  ? process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_LIVE!
+  : process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_TEST!;
+
+loadStripe(publishableKey);
 
 interface PlansProps {
   isEnglish: boolean;

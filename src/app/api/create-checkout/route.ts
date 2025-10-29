@@ -3,9 +3,14 @@ import Stripe from 'stripe';
 
 export async function POST(req: NextRequest) {
   try {
-    const secretKey = process.env.STRIPE_SECRET_KEY;
+    const stripeMode = process.env.NEXT_PUBLIC_STRIPE_MODE || 'test'; // Default to 'test' for safety
+
+    const secretKey = stripeMode === 'live'
+      ? process.env.STRIPE_SECRET_KEY_LIVE
+      : process.env.STRIPE_SECRET_KEY_TEST;
+
     if (!secretKey) {
-      return NextResponse.json({ error: 'Stripe secret key is not configured on the server' }, { status: 500 });
+      return NextResponse.json({ error: `Stripe secret key for ${stripeMode} mode is not configured` }, { status: 500 });
     }
 
     const stripe = new Stripe(secretKey, {
