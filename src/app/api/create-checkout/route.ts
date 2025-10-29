@@ -5,6 +5,13 @@ export async function POST(req: NextRequest) {
   try {
     const stripeMode = process.env.NEXT_PUBLIC_STRIPE_MODE || 'test'; // Default to 'test' for safety
 
+    // --- Vercel Environment Variable Debugging ---
+    console.log("--- Stripe Env Debug ---");
+    console.log("Stripe Mode:", stripeMode);
+    console.log("Found LIVE Secret Key:", !!process.env.STRIPE_SECRET_KEY_LIVE);
+    console.log("Found TEST Secret Key:", !!process.env.STRIPE_SECRET_KEY_TEST);
+    // -----------------------------------------
+
     const secretKey = stripeMode === 'live'
       ? process.env.STRIPE_SECRET_KEY_LIVE
       : process.env.STRIPE_SECRET_KEY_TEST;
@@ -64,7 +71,7 @@ export async function POST(req: NextRequest) {
         },
       ],
       mode: 'subscription',
-      success_url: `${req.headers.get('origin')}/?success=true&plan=${planType}`,
+      success_url: `${req.headers.get('origin')}/payment-success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${req.headers.get('origin')}/?canceled=true`,
       metadata: {
         planType,
