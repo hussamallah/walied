@@ -22,11 +22,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ar" dir="rtl">
+    <html lang="en" dir="ltr">
       <body
         className={`${tajawal.variable} font-sans antialiased`}
         style={{
-          direction: "rtl"
+          direction: "ltr"
         }}
       >
         {children}

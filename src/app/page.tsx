@@ -10,7 +10,7 @@ import CV from "@/components/CV";
 import Footer from "@/components/Footer";
 
 export default function Home() {
-  const [isEnglish, setIsEnglish] = useState(false);
+  const [isEnglish, setIsEnglish] = useState(true);
 
   return (
     <div style={{ direction: isEnglish ? "ltr" : "rtl" }}>

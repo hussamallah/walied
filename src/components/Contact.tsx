@@ -110,7 +110,7 @@ export default function Contact() {
             أو تواصل معنا مباشرة عبر واتساب
           </p>
           <a 
-            href="https://wa.me/15715644075?text=الاسم%3A%20%0Aالعمر%3A%20%0Aالهدف%3A%20%0Aالوزن%3A%20%0Aالجنس%3A%20" 
+            href="https://wa.me/15715644075?text=Name%3A%20%0AAge%3A%20%0AGoal%3A%20%0AWeight%3A%20%0AGender%3A%20"
             target="_blank" 
             rel="noopener noreferrer"
             style={{
